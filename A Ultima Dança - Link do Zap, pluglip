@@ -1,0 +1,78 @@
+## ATENÇÃO --- Arquivo em Python ##
+
+from rich.console import Console
+import time
+
+console = Console()
+
+def typewriter(lines, default_char_delay=0.08, default_line_delay=0.5):
+    
+    for line in lines:
+        if isinstance(line, list):  
+            line_delay = default_line_delay
+            for segment in line:
+                if len(segment) == 2:
+                    text, color = segment
+                    char_delay = default_char_delay
+                elif len(segment) == 3:
+                    text, color, char_delay = segment
+                else:
+                    raise ValueError()
+
+                for ch in text:
+                    console.print(ch, style=color, end="")
+                    console.file.flush()
+                    time.sleep(char_delay)
+            console.print()
+            time.sleep(line_delay)
+        else:  
+            text, char_delay, line_delay, color = line
+            for ch in text:
+                console.print(ch, style=color, end="")
+                console.file.flush()
+                time.sleep(char_delay)
+            console.print()
+            time.sleep(line_delay)
+
+
+if __name__ == "__main__":
+ linhas = [
+        ("Eu sabia, ia ser nossa última dança", 0.06, 0.06, "#454545"),
+        ("(Nossa última dança)",  0.07, 0.03, "#454545"),
+        ("Foi embora seu eu ver", 0.09, 0.06, "#454545"),
+
+        [
+            ("Igual a minha ", "#454545", 0.05),
+            ("infância", "white", 0.05),
+        ],
+
+        ("Só me liga, quando ela quer transa", 0.05, 0.05, "#454545"),
+        ("Deu saudade, então ela me chama", 0.06, 0.06, "#454545"),
+        ("deve ser tão triste", 0.09, 0.07, "#454545"),
+        
+        [
+            ("dançar nos braços de quem ", "#454545", 0.07),
+            ("não te A M A", "bold italic red", 0.05),
+        ],
+
+        ("Dormir em outros lugares", 0.06, 0.11, "#454545"),
+        ("e lembrar da minha cama", 0.06, 0.13, "#454545"),
+        ("Pedir meu último pedaço", 0.06, 0.15, "#454545"),
+    
+        [
+            ("E eu te disse: ", "#454545", 0.09),
+            ("T o m a", "bold italic white", 0.09),
+        ],
+
+        ("Garota, cê ta em pedaço", 0.07, 0.13, "#454545"),
+        ("Por que ainda se apaixona?", 0.06, 0.06, "#454545"),
+        ("O amor exige muito", 0.09, 0.10, "#454545"),
+        
+        [
+            ("E você não tem ", "#454545", 0.09),
+            ("n a d a", "bold italic strike white", 0.11),
+        ],
+
+        ("__", 5, 2, "#454545"),
+    ]
+typewriter(linhas)
