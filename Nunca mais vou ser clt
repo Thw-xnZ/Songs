@@ -1,0 +1,80 @@
+from rich.console import Console
+import time
+
+console = Console()
+
+def typewriter(lines, default_char_delay=0.08, default_line_delay=0.5):
+    
+    for line in lines:
+        if isinstance(line, list):  
+            line_delay = default_line_delay
+            for segment in line:
+                if len(segment) == 2:
+                    text, color = segment
+                    char_delay = default_char_delay
+                elif len(segment) == 3:
+                    text, color, char_delay = segment
+                else:
+                    raise ValueError()
+
+                for ch in text:
+                    console.print(ch, style=color, end="")
+                    console.file.flush()
+                    time.sleep(char_delay)
+            console.print()
+            time.sleep(line_delay)
+        else:  
+            text, char_delay, line_delay, color = line
+            for ch in text:
+                console.print(ch, style=color, end="")
+                console.file.flush()
+                time.sleep(char_delay)
+            console.print()
+            time.sleep(line_delay)
+
+
+if __name__ == "__main__":
+ linhas = [
+        ("Acima de todo ódio e rancor que sinto pelo mundo", 0.04, 0.06, "#454545"),
+        ("E acima de todo amor",  0.05, 0.03, "#454545"),
+        ("Que eu já senti por cada ser humano vivo", 0.03, 0.06, "#454545"),
+        
+        [
+            ("E u  m e  o d e i o", "bold italic strike white", 0.07),
+        ],
+
+        ("Tive a existência mais fútil de todas", 0.03, 0.04, "#454545"),
+        
+        [
+            ("E tive medo de existir com as minhas ", "#454545", 0.04),
+            ("individualidades", "bold italic #A0EFFF", 0.03),
+        ],
+
+        ("Mas amanhã o Sol nasce de novo", 0.04, 0.05, "#454545"),
+        ("comigo aqui ou não", 0.04, 0.05, "#454545"),
+        ("Os pássaros vão cantar de manhã", 0.04, 0.05, "#454545"),
+        ("E no fim do dia o Sol vai se pôr", 0.04, 0.05, "#454545"),
+        
+        [
+            ("Como sempre.", "bold italic white", 0.04),
+        ],
+
+        ("Então não se apegue tanto a isso", 0.025, 0.04, "#454545"),
+        ("As coisas começam e acabam", 0.06, 0.06, "#454545"),
+        
+        [
+            ("vivem ", "bold italic #CCE8BD", 0.04),
+            ("e ", "italic black ", 0.04),
+            ("morrem", "bold italic #E6A4A4", 0.04),
+        ],
+        
+        ("E existir é aceitar o inicio", 0.05, 0.04, "#454545"),
+        ("mas aceitar ainda mais", 0.06, 0.10, "#454545"),
+
+        [
+            ("O fim.", "bold italic underline white", 0.11),
+        ],
+
+        ("___", 5, 2, "#1F1F1F"),
+    ]
+typewriter(linhas)
