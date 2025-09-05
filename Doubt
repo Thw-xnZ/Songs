@@ -1,0 +1,97 @@
+from rich.console import Console
+import time
+import os
+
+console = Console()
+
+def typewriter(lines, default_char_delay=0.08, default_line_delay=0.5):
+    
+    for line in lines:
+        if isinstance(line, list):  
+            line_delay = default_line_delay
+            for segment in line:
+                if len(segment) == 2:
+                    text, color = segment
+                    char_delay = default_char_delay
+                elif len(segment) == 3:
+                    text, color, char_delay = segment
+                else:
+                    raise ValueError()
+
+                for ch in text:
+                    console.print(ch, style=color, end="")
+                    console.file.flush()
+                    time.sleep(char_delay)
+            console.print()
+            time.sleep(line_delay)
+        else:  
+            text, char_delay, line_delay, color = line
+            for ch in text:
+                console.print(ch, style=color, end="")
+                console.file.flush()
+                time.sleep(char_delay)
+            console.print()
+            time.sleep(line_delay)
+
+os.system("cls")
+if __name__ == "__main__":
+ linhas = [
+        ("Gnawing on the bishops", 0.08, 0.07, "#454545"),
+        ("claw our way up their system",  0.07, 0.06, "#454545"),
+        ("repeating simple phrases", 0.07, 0.12, "#454545"),
+        ("someone holy insisted", 0.09, 0.06, "#454545"),
+        ("want the markings made on my skin", 0.06, 0.12, "#454545"),
+        ("to mean something to me again", 0.062, 0.08, "#454545"),
+        ("Hope you haven't left without me, no", 0.053, 0.13, "#454545"),
+        
+        [
+            ("Don't forget ", "#454545", 0.11),
+            ("abou-\n", "bold italic white", 0.11), 
+            ("bou-\n", "bold italic white", 0.055), 
+            ("bou-\n", "bold italic white", 0.055), 
+            ("bou-\n", "bold italic white", 0.055), 
+            ("bout me", "bold italic white", 0.09), 
+        ],
+
+        [
+            ("Don't forget ", "#454545", 0.11),
+            ("abou-\n", "bold italic white", 0.11), 
+            ("bou-\n", "bold italic white", 0.055), 
+            ("bou-\n", "bold italic white", 0.055), 
+            ("bou-\n", "bold italic white", 0.055), 
+            ("bout me", "bold italic white", 0.11), 
+        ],
+
+        [
+            ("Even when i  ", "#454545", 0.08),
+            ("d o u b t  y o u\n", "bold italic #F7B063", 0.10),
+            ("(d o u b t  y o u)", "italic strike #454545", 0.04),
+        ],
+        
+        [
+            ("I'm no good  ", "#454545", 0.07),
+            ("w h i t h o u t  y o u", "bold italic #F7B063", 0.08),
+        ],
+
+        ("no", 0.20, 0.15, "#454545"),
+        ("no", 0.30, 0.75, "#454545"),
+        ("Scared of my own image", 0.06, 0.90, "#454545"),
+        ("Scared of my own immaturity", 0.07, 0.13, "#454545"),
+        ("Scared of my own ceiling", 0.06, 0.15, "#454545"),
+        ("Scared i'll die of uncertainty", 0.06, 0.18, "#454545"),
+        ("Fear might be the death of me", 0.06, 0.13, "#454545"),
+        ("Fear leads to anxiety", 0.09, 0.1, "#454545"),
+        ("Don't know what's inside of me", 0.06, 0.12, "#454545"),
+        
+        [
+            ("Don't forget ", "#454545", 0.11),
+            ("abou-\n", "bold italic #F7B063", 0.11), 
+            ("bou-\n", "bold italic #F7B063", 0.055), 
+            ("bou-\n", "bold italic #F7B063", 0.055), 
+            ("bou-\n", "bold italic #F7B063", 0.055), 
+            ("bout me.", "bold italic #F7B063", 0.09), 
+        ],
+
+        ("___", 5, 2, "#1F1F1F"),
+    ]
+typewriter(linhas)
