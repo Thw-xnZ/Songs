@@ -82,3 +82,4 @@ if __name__ == "__main__":
         ("___", 5, 2, "#1F1F1F"),
     ]
 typewriter(linhas)
+
